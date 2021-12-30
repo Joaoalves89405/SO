@@ -12,6 +12,9 @@
 char buffer[1024];
 int nln =0;
 int nln1 =0;
+char *result;
+char *toRead;
+int nlinhas;
 int readchar(int fd){
     char c[1];
     if(read(fd, c, 1) != 0){
@@ -39,26 +42,32 @@ ssize_t readln(int fd, char *line, size_t size){
         }
        
    
-    line[i] = 0;
+    line[i] = '\n';
+    line[i+1] = 0;
 
     return i;
 }
 
-/*void output (){
+void output (){
     char line[1024];
     //int x = atoi(argv[1]);
+    char enter='\n';
 
-    int fd = open(argv[2], O_RDONLY); 
-    FILE *file=fopen(argv[2],"r");
+    int fd = open(toRead, O_RDONLY); 
+    int fd2= open(result, O_WRONLY|O_CREAT|O_APPEND, 0600);
+    FILE *file=fopen(toRead,"r");
     while(readln(fd, line, 200) > 0){
        nln1++;
-        if(x>=nln1){
-            printf("%s\n",line);
+        if(nlinhas>=nln1){
+             printf("%s\n",line);
+            write(fd2, &line, strlen(line));
+           // write(fd2, &enter, sizeof(enter));
+
         }   
     
 
     }
-    printf("-------------------\n");
+    
     char temp[512];
     char *str="sistemas operativos";
      lseek(fd,0,SEEK_SET);
@@ -66,28 +75,33 @@ ssize_t readln(int fd, char *line, size_t size){
       
      while(fgets(temp,512,file)!=NULL){
        if((strcasestr(temp,str))!=NULL){
-           printf("%s",temp);
+           write(fd2, &temp, strlen(temp));
+         //write(fd2, &enter, sizeof(enter));
        }
      }
   
     fseek(file,0,SEEK_SET);
-    printf("-------------------\n");
-    int i=0;
+   
+    int i=-1;
     while(fgets(line, sizeof line,file)!=NULL){
             i++;
            
+           
     }
-    
-    int aux=i-x;
+     printf("%d\n",i);
+     printf("%d\n",nlinhas);
+    int aux=i-nlinhas;
+    printf("%d\n",aux);
    
      lseek(fd,0,SEEK_SET);
     while(readln(fd, line, 200) > 0){
          nln++;
         if(nln>aux){
-            printf("%s\n",line);
+            write(fd2, &line, strlen(line));
+            //write(fd2, &enter, sizeof(enter));
         }
     }
-}*/
+}
 
 
 
@@ -123,11 +137,22 @@ int main(int argc, char* argv[]){
             p = strtok(NULL, " ");
         }
         i=0;
+        //numero de linha a ler
+        nlinhas=atoi(arg[0]);
+
+        //ficheiro a guardar
+        result=arg[2];
+
+        //ficheiro a ler
+        toRead=arg[1];
+        if(nlinhas!=0 && result!=NULL && toRead!=NULL)
+        output();
         to_end = strcmp(readbuf, end);
       if (to_end == 0) {
             close(fd);
          break;
       }
+
    }
 
     
