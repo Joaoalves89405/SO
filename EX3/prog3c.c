@@ -7,7 +7,7 @@
 #include <string.h>
 #define FIFO_FILE "MYFIFO"
 
-int main() {
+int main(int argc, char* argv[]) {
    int fd;
    int end_process;
    int stringlen;
@@ -23,7 +23,13 @@ int main() {
       stringlen = strlen(readbuf);
       readbuf[stringlen - 1] = '\0';
       end_process = strcmp(readbuf, end_str);
-      
+      char array[100];
+      for(int m=0;m<=argc;m++){ 
+            strcat(argv[m]," ");
+
+         }
+         strcpy(array,argv); 
+      printf("%s\n",array);
  
       if (end_process != 0) {
          write(fd, readbuf, strlen(readbuf));
