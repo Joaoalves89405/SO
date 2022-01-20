@@ -82,16 +82,16 @@ void output (){
   
     fseek(file,0,SEEK_SET);
    
-    int i=-1;
+    int i=0;
     while(fgets(line, sizeof line,file)!=NULL){
             i++;
            
            
     }
-     printf("%d\n",i);
-     printf("%d\n",nlinhas);
+     printf("Linhas totais  %d\n",i);
+     printf("Numero de linhas a ler  %d\n",nlinhas);
     int aux=i-nlinhas;
-    printf("%d\n",aux);
+    printf("Ler a partir da linha %d (para as ultimas n)\n",aux);
    
      lseek(fd,0,SEEK_SET);
     while(readln(fd, line, 200) > 0){
