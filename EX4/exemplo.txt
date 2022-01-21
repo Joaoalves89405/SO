@@ -1,10 +1,11 @@
-E  1111
-E  222
-E  3333
-E  4444 
-E  sisTemas Operativos Filhos da puta
-E  5555
-E  6666
-E  7777
-E  8888
-E  TOUUUUUUUUUUU sisTemas operativos Albinio
+INICIO exemplo.txt
+1111   exemplo.txt
+222  exemplo.txt
+3333    exemplo.txt
+4444 sisTemas Operativos exemplo.txt
+5555    exemplo.txt
+6666    exemplo.txt
+7777    exemplo.txt
+8888    exemplo.txt
+SisTemas operativos     exemplo.txt
+Fim exemplo.txt 

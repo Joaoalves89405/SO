@@ -16,7 +16,6 @@ int main(int argc, char* argv[]) {
          strcat(buffer," ");
       }
          write(fd, buffer, strlen(buffer));
-         printf("%s",buffer);
    
    return 0;
 }

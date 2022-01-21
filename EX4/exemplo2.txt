@@ -1,0 +1,9 @@
+Inicio exemplo2.txt
+sistemas operativos1    exemplo2.txt
+sistemas operativos2    exemplo2.txt
+3333    exemplo2.txt
+4444    exemplo2.txt
+555 exemplo2.txt
+sistemas operativos 3   exemplo2.txt
+sistemas operativos 3453454    exemplo2.txt
+Fim exemplo2.txt

@@ -101,6 +101,8 @@ void output (){
             //write(fd2, &enter, sizeof(enter));
         }
     }
+    nln=0;
+    nln1=0;
 }
 
 
@@ -108,7 +110,6 @@ void output (){
 
 
 int main(int argc, char* argv[]){
-    int fdo = open("output.txt", O_WRONLY | O_CREAT | O_TRUNC,0640);
     char *p;
     char *arg [80];
     int n;

@@ -52,7 +52,7 @@ int main2(int linhas, char *ficheiro){
     int fd = open(ficheiro, O_RDONLY); 
     FILE *file=fopen(ficheiro,"r");
     if(fd==0){
-        printf("Nao abriu \n");
+        printf("Não foi possivel abrir \n");
 
     }
     
@@ -60,7 +60,6 @@ int main2(int linhas, char *ficheiro){
         
        nln1++;
         if(linhas>=nln1){
-            printf("TOU 1 linhas \n");
             printf("%s\n",line);
         }   
     
@@ -91,7 +90,6 @@ int main2(int linhas, char *ficheiro){
     while(readln(fd, line, 200) > 0){
          nln++;
         if(nln>aux){
-            printf("TOU 3 linhas \n");
             printf("%s\n",line);
         }
           

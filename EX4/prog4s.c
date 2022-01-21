@@ -70,11 +70,7 @@ void output (){
     while(fgets(line, sizeof line,file)!=NULL){
         i++;      
     }
-
-    printf("Linhas totais  %d\n",i);
-    printf("Numero de linhas a ler  %d\n",nlinhas);
     int aux=i-nlinhas;
-    printf("Ler a partir da linha %d (para as ultimas n)\n",aux);
     lseek(fd,0,SEEK_SET);
 
     while(readln(fd, line, 200) > 0){
@@ -83,6 +79,8 @@ void output (){
                 write(fd2, &line, strlen(line));
             }
     }
+    nln=0;
+    nln1=0;
 }
 
 
@@ -121,15 +119,10 @@ int main(int argc, char* argv[]){
                     i=0;
                     //numero de linha a ler
                     nlinhas=atoi(arg[0]);
-            
                     //ficheiro a guardar
                     result=arg[2];
-                    printf("%s\n",result);
-                    
                     //ficheiro a ler 
                     toRead=arg[1];
-                    printf("%s\n",toRead);
-
                     if(nlinhas!=0 && result!=NULL && toRead!=NULL) 
                     output();
                 }
