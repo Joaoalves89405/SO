@@ -4,23 +4,12 @@
 #include <signal.h>
 int pid;
 
-/*void handler(int signum){
-    
-    switch (signum){
-        case SIGQUIT:{
-             printf("Processo termindado\n");
-             kill(SIGKILL,pid);
-        }
-    }
-}*/
-
-
 main(){
         char pidline[1024];
         char *pid;
         int i =0;
         int pidno[64];
-        FILE *fp = popen("pidof prog3s","r");
+        FILE *fp = popen("pidof prog4s","r");
     
         fgets(pidline,1024,fp);
         
@@ -32,7 +21,7 @@ main(){
                         
         if (kill(pidno[i],SIGKILL)!=0){
             printf("%d\n",kill);
-            printf("Nao consegui matar esse\n");
+            printf("Nao consegui matar o processo %d\n", pidno[i]);
         }
         pclose(fp);
 }

@@ -9,98 +9,79 @@
 #define FIFO_FILE "MYFIFO"
 #define MAX 100000
 
-char buffer[1024];
 int nln =0;
 int nln1 =0;
 char *result;
 char *toRead;
 int nlinhas;
 int nProc;
+
 int readchar(int fd){
     char c[1];
     if(read(fd, c, 1) != 0){
-       
-        
         return c[0];
     } else { 
-      
-        return -1;}   
-       
+        return -1;
+    }      
 }
 
 ssize_t readln(int fd, char *line, size_t size){
     int i = 0;
-
-    int ln=0;
-
     char c = readchar(fd);
-    while(c > 0 && c != '\n' && i < size){
-        line[i] = c; 
 
-        i++;
-        c = readchar(fd);
-        
+        while(c > 0 && c != '\n' && i < size){
+            line[i] = c; 
+            i++;
+            c = readchar(fd);
         }
-       
-   
+
     line[i] = '\n';
     line[i+1] = 0;
-
     return i;
 }
 
 void output (){
-    char line[1024];
-    //int x = atoi(argv[1]);
-    char enter='\n';
 
+    char line[1024];
     int fd = open(toRead, O_RDONLY); 
     int fd2= open(result, O_WRONLY|O_CREAT|O_APPEND, 0600);
     FILE *file=fopen(toRead,"r");
+
     while(readln(fd, line, 200) > 0){
        nln1++;
         if(nlinhas>=nln1){
              printf("%s\n",line);
-            write(fd2, &line, strlen(line));
-           // write(fd2, &enter, sizeof(enter));
-
+             write(fd2, &line, strlen(line));
         }   
-    
-
     }
     
     char temp[512];
     char *str="sistemas operativos";
-     lseek(fd,0,SEEK_SET);
-     int ret;
+    lseek(fd,0,SEEK_SET);
       
-     while(fgets(temp,512,file)!=NULL){
+    while(fgets(temp,512,file)!=NULL){
        if((strcasestr(temp,str))!=NULL){
            write(fd2, &temp, strlen(temp));
-         //write(fd2, &enter, sizeof(enter));
        }
-     }
+    }
   
     fseek(file,0,SEEK_SET);
-   
     int i=0;
     while(fgets(line, sizeof line,file)!=NULL){
-            i++;
-           
-           
+        i++;      
     }
-     printf("Linhas totais  %d\n",i);
-     printf("Numero de linhas a ler  %d\n",nlinhas);
+
+    printf("Linhas totais  %d\n",i);
+    printf("Numero de linhas a ler  %d\n",nlinhas);
     int aux=i-nlinhas;
     printf("Ler a partir da linha %d (para as ultimas n)\n",aux);
-   
-     lseek(fd,0,SEEK_SET);
+    lseek(fd,0,SEEK_SET);
+
     while(readln(fd, line, 200) > 0){
-         nln++;
-        if(nln>aux){
-            write(fd2, &line, strlen(line));
-            //write(fd2, &enter, sizeof(enter));
-        }
+        nln++;
+            if(nln>aux){
+                write(fd2, &line, strlen(line));
+            }
     }
 }
 
@@ -111,12 +92,9 @@ void output (){
 int main(int argc, char* argv[]){
     char *p;
     char *arg [80];
-    int n;
     int i =0;
     int fd;
     char readbuf[80];
-    char end[10];
-    int to_end;
     int clientes=0;
     int read_bytes;
     nProc=atoi(argv[1]);  
@@ -124,60 +102,45 @@ int main(int argc, char* argv[]){
 
     while(1) {
       
-          
-            fd = open(FIFO_FILE, O_RDONLY);
-             printf("Puta que pariu \n");
-            
-            while(read(fd, readbuf, sizeof(readbuf))>0){
-               
-                 clientes++;
-                if(clientes<=nProc){
-                    printf("Clientes %d \n",clientes);
+        fd = open(FIFO_FILE, O_RDONLY);
+        while(read(fd, readbuf, sizeof(readbuf))>0){
+            clientes++;
+            if(clientes<=nProc){
+                printf("Clientes %d \n",clientes);
                 if(fork()==0){
-               // read_bytes = read(fd, readbuf, sizeof(readbuf));
-                
-                   // readbuf[read_bytes] = '\0';
-            p = strtok(readbuf," ");
-           
-            while(p != NULL){
-                arg[i] =p;
-                printf("%s\n",arg[i]);
-                printf("%d\n",i);
-                i++;
-                p = strtok(NULL, " ");
-            } 
-            
-            i=0;
-            //numero de linha a ler
-            nlinhas=atoi(arg[0]);
-            
-            //ficheiro a guardar
-            result=arg[2];
-            printf("%s\n",result);
-            //ficheiro a ler 
-          
-            toRead=arg[1];
-            printf("%s\n",toRead);
-            if(nlinhas!=0 && result!=NULL && toRead!=NULL) 
-           
-            output();
+                    p = strtok(readbuf," ");
 
+                    while(p != NULL){    
+                        arg[i] =p;
+                        printf("%s\n",arg[i]);
+                        printf("%d\n",i);
+                        i++;
+                        p = strtok(NULL, " ");
+                    } 
+            
+                    i=0;
+                    //numero de linha a ler
+                    nlinhas=atoi(arg[0]);
+            
+                    //ficheiro a guardar
+                    result=arg[2];
+                    printf("%s\n",result);
+                    
+                    //ficheiro a ler 
+                    toRead=arg[1];
+                    printf("%s\n",toRead);
+
+                    if(nlinhas!=0 && result!=NULL && toRead!=NULL) 
+                    output();
                 }
             }
-        
-             wait(NULL);
-             
-             clientes--;
+            wait(NULL);
+            clientes--;
             printf("Clientes %d \n",clientes);
-        }  
-
-                    
-         
-        
-           
-           
+        }     
    }
-   close(fd);
+
+    close(fd);
     return 0;
 }
 
