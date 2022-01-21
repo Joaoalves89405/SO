@@ -85,7 +85,6 @@ int main2(int linhas, char *ficheiro){
            
     }
     int aux=i-linhas;
-    printf("AUX  %d\n",aux);
      lseek(fd,0,SEEK_SET);
     while(readln(fd, line, 200) > 0){
          nln++;

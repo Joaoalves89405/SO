@@ -6,4 +6,3 @@ siatemas operativos2    exemplo2.txt
 555 exemplo2.txt
 sistemas operativos 3   exemplo2.txt
 sistemas operativos 3453454    exemplo2.txt
-Fim exemplo2.txt

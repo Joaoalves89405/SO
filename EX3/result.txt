@@ -1,0 +1,12 @@
+INICIO exemplo.txt
+1111   exemplo.txt
+4444 sisTemas Operativos exemplo.txt
+SisTemas operativos     exemplo.txt
+SisTemas operativos     exemplo.txt
+Fim exemplo.txt 
+INICIO exemplo.txt
+1111   exemplo.txt
+4444 sisTemas Operativos exemplo.txt
+SisTemas operativos     exemplo.txt
+SisTemas operativos     exemplo.txt
+Fim exemplo.txt 
